@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NavigationComponent</string>
+    ]<string name="title_menu_first">1st</string>
+    <string name="title_menu_second">2nd</string>
+    <string name="title_menu_third">3rd</string>
+    <string name="title_depth_second">2depth</string>
+</resources>

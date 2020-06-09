@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Convert.iml" filepath="$PROJECT_DIR$/Convert.iml" group="Convert" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Convert-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Convert-app.iml" group="Convert/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Convert_Sample-Convert.iml" filepath="$PROJECT_DIR$/.idea/modules/Convert_Sample-Convert.iml" group="Convert" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Convert/app" />
     </modules>
   </component>
