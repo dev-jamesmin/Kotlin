@@ -20,29 +20,23 @@ class GameActivity : AppCompatActivity() {
 
     private var gameArrary:ArrayList<Int> = ArrayList<Int>()
     private var gameAnswerArrary:ArrayList<Int> = ArrayList<Int>()
-
     private var answerResult:Int = 0
     private var base:Int = 0
     private var count:Int = 0
-    private lateinit var mHandler: Handler
-    private lateinit var mRunnable:Runnable
-
+    private var baseNumber:Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_option)
-
         gameArrary.add(7)
+        gameArrary.add(6)
+        gameArrary.add(5)
 
-        base = gameArrary[0]
+        base = gameArrary[baseNumber]
         mBinding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        setAnswer()
-//        setComplete()
+
+        binding.result.isClickable = true
+        binding.result.visibility = View.GONE
         count = 1
-
-        // Initialize the handler instance
-        mHandler = Handler()
-
         answerMaker()
         checkAnswer()
     }
@@ -116,9 +110,20 @@ class GameActivity : AppCompatActivity() {
     private fun nextProblem() {
         if(count < 9){
             count++
+            binding.answerGroup.isClickable = true
             binding.result.visibility = View.GONE
+            answerMaker()
+        }else{
+            if(baseNumber < (gameArrary.size - 1)){
+                baseNumber++
+                base = gameArrary[baseNumber]
+                count = 1
+                binding.result.visibility = View.GONE
+                answerMaker()
+            }else{
+                Toast.makeText(this, "FINISH", Toast.LENGTH_SHORT).show()
+            }
         }
-        answerMaker()
     }
 
 }
