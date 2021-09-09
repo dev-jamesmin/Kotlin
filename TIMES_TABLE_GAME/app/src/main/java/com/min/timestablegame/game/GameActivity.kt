@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.min.timestablegame.databinding.ActivityGameBinding
+import com.min.timestablegame.util.SharedPreferencesUtil
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -18,7 +19,8 @@ class GameActivity : AppCompatActivity() {
     // 매번 null 체크를 할 필요 없이 편의성을 위해 바인딩 변수 재 선언
     private val binding get() = mBinding!!
 
-    private var gameArrary:ArrayList<Int> = ArrayList<Int>()
+//    private var gameArrary:ArrayList<Int> = ArrayList<Int>()
+    private var gameDataArrary:ArrayList<String> = ArrayList<String>()
     private var gameAnswerArrary:ArrayList<Int> = ArrayList<Int>()
     private var answerResult:Int = 0
     private var base:Int = 0
@@ -26,16 +28,14 @@ class GameActivity : AppCompatActivity() {
     private var baseNumber:Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        gameArrary.add(7)
-        gameArrary.add(6)
-        gameArrary.add(5)
+        gameDataArrary = SharedPreferencesUtil().getStringArrayPref(this,"GAMES")!!
 
-        base = gameArrary[baseNumber]
+        base = gameDataArrary[baseNumber].toInt()
         mBinding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.result.isClickable = true
         binding.result.visibility = View.GONE
+
         count = 1
         answerMaker()
         checkAnswer()
@@ -55,12 +55,14 @@ class GameActivity : AppCompatActivity() {
     private fun answerMaker() {
         gameAnswerArrary = ArrayList<Int>()
         gameAnswerArrary.add(base * count)
-        val random = Random()
-//        val num = random.nextInt(5)
 
+        val random = Random()
+        var limitNumber =  base * count
+        limitNumber += 10
+//        if(limitNumber < 6) limitNumber += 6
         while (gameAnswerArrary.size < 6){
-            val num = random.nextInt(base * count)
-            if(!gameAnswerArrary.contains(num)){
+            val num = random.nextInt(limitNumber)
+            if(!gameAnswerArrary.contains(num) && num != 0){
                 gameAnswerArrary.add(num)
             }
         }
@@ -114,9 +116,9 @@ class GameActivity : AppCompatActivity() {
             binding.result.visibility = View.GONE
             answerMaker()
         }else{
-            if(baseNumber < (gameArrary.size - 1)){
+            if(baseNumber < (gameDataArrary.size - 1)){
                 baseNumber++
-                base = gameArrary[baseNumber]
+                base = gameDataArrary[baseNumber].toInt()
                 count = 1
                 binding.result.visibility = View.GONE
                 answerMaker()

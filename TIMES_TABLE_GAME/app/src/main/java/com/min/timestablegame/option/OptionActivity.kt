@@ -2,8 +2,10 @@ package com.min.timestablegame.option
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.min.timestablegame.databinding.ActivityOptionBinding
+import com.min.timestablegame.util.SharedPreferencesUtil
 
 class OptionActivity : AppCompatActivity() {
 
@@ -11,13 +13,24 @@ class OptionActivity : AppCompatActivity() {
     private var mBinding: ActivityOptionBinding? = null
     // 매번 null 체크를 할 필요 없이 편의성을 위해 바인딩 변수 재 선언
     private val binding get() = mBinding!!
-
     private val gameArrary:ArrayList<Int> = ArrayList<Int>()
+    private var gameDataArrary:ArrayList<String> = ArrayList<String>()
+    private var gameOptionDataArrary:ArrayList<String> = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_option)
         mBinding = ActivityOptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        SharedPreferencesUtil().getStringArrayPref(this,"GAMES").also {
+            if (it != null) {
+                gameDataArrary = it
+                setCheckBox()
+            }
+        }
+
+        Log.d("[BRANDI]", "[gameData-Arrary]$gameDataArrary")
+
         setOptionButtons()
         setComplete()
     }
@@ -88,6 +101,40 @@ class OptionActivity : AppCompatActivity() {
          }
     }
 
+    private fun setCheckBox() {
+
+        gameDataArrary
+        var number = 0
+        while (number < (gameDataArrary.size)){
+            setCheckBoxData(gameDataArrary[number].toInt())
+            number += 1
+        }
+
+
+        binding.completeButton.setOnClickListener(){
+            Log.d("[BRANDI]", "[RESULT]$gameArrary")
+            finishOption()
+        }
+    }
+
+    private fun setCheckBoxData(num:Int) {
+        Log.d("[BRANDI]", "[num]$num")
+        gameArrary.add(num)
+        when(num){
+            2->  binding.checkbox2.isChecked = true
+            3-> binding.checkbox3.isChecked = true
+            4-> binding.checkbox4.isChecked = true
+            5-> binding.checkbox5.isChecked = true
+            6-> binding.checkbox6.isChecked = true
+            7-> binding.checkbox7.isChecked = true
+            8-> binding.checkbox8.isChecked = true
+            9-> binding.checkbox9.isChecked = true
+            else-> "3"
+        }
+    }
+
+
+
     private fun setComplete() {
         binding.completeButton.setOnClickListener(){
             Log.d("[BRANDI]", "[RESULT]$gameArrary")
@@ -96,7 +143,12 @@ class OptionActivity : AppCompatActivity() {
     }
 
     private fun finishOption() {
-
+        if(0 < gameArrary.size){
+            SharedPreferencesUtil().setIntArrayPref(this,"GAMES",gameArrary)
+            finish()
+        }else{
+            Toast.makeText(this, "1개이상 선택해주세요", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

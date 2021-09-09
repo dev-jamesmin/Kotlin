@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TIMES_TABLE_GAME</string>
     <string name="app_splash_text">KoKo&amp;\nPanda company</string>
-    <string name="app_main_text">구구단 공부하자!</string>
+    <string name="app_main_text">구구단 공부</string>
     <string name="app_option_text">설정</string>
-    <string name="app_option_sub_1_title">단을 선택하세요</string>
+    <string name="app_option_sub_1_title">몇단을 공부 할까요?</string>
 </resources>

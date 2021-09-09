@@ -3,9 +3,12 @@ package com.min.timestablegame
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.min.timestablegame.databinding.ActivityMainBinding
 import com.min.timestablegame.game.GameActivity
 import com.min.timestablegame.option.OptionActivity
+import com.min.timestablegame.util.SharedPreferencesUtil
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,8 +27,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setButtons() {
         binding.gameStart.setOnClickListener(){
-            val intent = Intent(this,GameActivity::class.java)
-            startActivity(intent)
+            if(0 < SharedPreferencesUtil().getStringArrayPref(this,"GAMES")?.size ?: 0){
+                val intent = Intent(this,GameActivity::class.java)
+                startActivity(intent)
+            }else{
+                Toast.makeText(this, "옵션 설정을 해주세요", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.gameOption.setOnClickListener(){
@@ -34,10 +41,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-
-//    OptionActivity
-
 //    override fun onBackPressed() {
 ////        super.onBackPressed()
 //        // 메인에서 뒤로 가기 하면 종료.
