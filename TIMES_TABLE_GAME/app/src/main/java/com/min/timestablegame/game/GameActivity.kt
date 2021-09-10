@@ -44,12 +44,17 @@ class GameActivity : AppCompatActivity() {
     private fun setGame() {
         answerResult =  base * count
         binding.problemText.text = base.toString()+"X"+ count.toString()
-        binding.answer1.text = gameAnswerArrary[0].toString()
-        binding.answer2.text = gameAnswerArrary[1].toString()
-        binding.answer3.text = gameAnswerArrary[2].toString()
-        binding.answer4.text = gameAnswerArrary[3].toString()
-        binding.answer5.text = gameAnswerArrary[4].toString()
-        binding.answer6.text = gameAnswerArrary[5].toString()
+        binding.answerGroup.answer1.text = gameAnswerArrary[0].toString()
+        binding.answerGroup.answer2.text = gameAnswerArrary[1].toString()
+        binding.answerGroup.answer3.text = gameAnswerArrary[2].toString()
+
+        // 3개 짜리로 변경
+//        binding.answer1.text = gameAnswerArrary[0].toString()
+//        binding.answer2.text = gameAnswerArrary[1].toString()
+//        binding.answer3.text = gameAnswerArrary[2].toString()
+//        binding.answer4.text = gameAnswerArrary[3].toString()
+//        binding.answer5.text = gameAnswerArrary[4].toString()
+//        binding.answer6.text = gameAnswerArrary[5].toString()
     }
 
     private fun answerMaker() {
@@ -58,14 +63,24 @@ class GameActivity : AppCompatActivity() {
 
         val random = Random()
         var limitNumber =  base * count
-        limitNumber += 10
+//        limitNumber += 10
+//        gameAnswerArrary.add(limitNumber)
+//        if(limitNumber < 3) limitNumber += 3
+
 //        if(limitNumber < 6) limitNumber += 6
-        while (gameAnswerArrary.size < 6){
-            val num = random.nextInt(limitNumber)
-            if(!gameAnswerArrary.contains(num) && num != 0){
-                gameAnswerArrary.add(num)
-            }
-        }
+//        while (gameAnswerArrary.size < 6){
+
+
+//        while (gameAnswerArrary.size < 3){
+//            val num = random.nextInt(limitNumber)
+//            if(!gameAnswerArrary.contains(num) && num != 0){
+//                gameAnswerArrary.add(num)
+//            }
+//        }
+
+        gameAnswerArrary.add(limitNumber - 1)
+        gameAnswerArrary.add(limitNumber + 1)
+
         // 섞는다.
         gameAnswerArrary.shuffle()
         Log.d("gameAnswerArrary",gameAnswerArrary.toString())
@@ -73,24 +88,24 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun checkAnswer() {
-        binding.answer1.setOnClickListener(){
-            setResultText(binding.answer1.text.toString())
+        binding.answerGroup.answer1.setOnClickListener(){
+            setResultText(binding.answerGroup.answer1.text.toString())
         }
-        binding.answer2.setOnClickListener(){
-            setResultText(binding.answer2.text.toString())
+        binding.answerGroup.answer2.setOnClickListener(){
+            setResultText(binding.answerGroup.answer2.text.toString())
         }
-        binding.answer3.setOnClickListener(){
-            setResultText(binding.answer3.text.toString())
+        binding.answerGroup.answer3.setOnClickListener(){
+            setResultText(binding.answerGroup.answer3.text.toString())
         }
-        binding.answer4.setOnClickListener(){
-            setResultText(binding.answer4.text.toString())
-        }
-        binding.answer5.setOnClickListener(){
-            setResultText(binding.answer5.text.toString())
-        }
-        binding.answer6.setOnClickListener(){
-            setResultText(binding.answer6.text.toString())
-        }
+//        binding.answerGroup.answer4.setOnClickListener(){
+//            setResultText(binding.answerGroup.answer4.text.toString())
+//        }
+//        binding.answer5.setOnClickListener(){
+//            setResultText(binding.answer5.text.toString())
+//        }
+//        binding.answer6.setOnClickListener(){
+//            setResultText(binding.answer6.text.toString())
+//        }
     }
 
     private fun setResultText(resultText:String) {
@@ -112,7 +127,6 @@ class GameActivity : AppCompatActivity() {
     private fun nextProblem() {
         if(count < 9){
             count++
-            binding.answerGroup.isClickable = true
             binding.result.visibility = View.GONE
             answerMaker()
         }else{
