@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.min.timestablegame.databinding.ActivityGameBinding
+import com.min.timestablegame.util.RandomUtil
 import com.min.timestablegame.util.SharedPreferencesUtil
 import java.util.*
 import kotlin.collections.ArrayList
@@ -26,6 +27,7 @@ class GameActivity : AppCompatActivity() {
     private var base:Int = 0
     private var count:Int = 0
     private var baseNumber:Int = 0
+    private var gameType:Int = 3
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         gameDataArrary = SharedPreferencesUtil().getStringArrayPref(this,"GAMES")!!
@@ -59,27 +61,20 @@ class GameActivity : AppCompatActivity() {
 
     private fun answerMaker() {
         gameAnswerArrary = ArrayList<Int>()
-        gameAnswerArrary.add(base * count)
-
         val random = Random()
         var limitNumber =  base * count
-//        limitNumber += 10
-//        gameAnswerArrary.add(limitNumber)
-//        if(limitNumber < 3) limitNumber += 3
+        var min =  limitNumber - 2
+        var max =  limitNumber + 4
 
-//        if(limitNumber < 6) limitNumber += 6
-//        while (gameAnswerArrary.size < 6){
+        gameAnswerArrary.add(limitNumber)
 
-
-//        while (gameAnswerArrary.size < 3){
+        while (gameAnswerArrary.size < gameType){
 //            val num = random.nextInt(limitNumber)
-//            if(!gameAnswerArrary.contains(num) && num != 0){
-//                gameAnswerArrary.add(num)
-//            }
-//        }
-
-        gameAnswerArrary.add(limitNumber - 1)
-        gameAnswerArrary.add(limitNumber + 1)
+            val num = RandomUtil().rangeSingle(min,max)
+            if(!gameAnswerArrary.contains(num) && num != 0){
+                gameAnswerArrary.add(num)
+            }
+        }
 
         // 섞는다.
         gameAnswerArrary.shuffle()
