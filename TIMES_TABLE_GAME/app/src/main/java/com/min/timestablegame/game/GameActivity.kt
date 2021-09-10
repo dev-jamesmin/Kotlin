@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.min.timestablegame.common.CommonValue
 import com.min.timestablegame.databinding.ActivityGameBinding
 import com.min.timestablegame.util.RandomUtil
 import com.min.timestablegame.util.SharedPreferencesUtil
@@ -23,29 +24,36 @@ class GameActivity : AppCompatActivity() {
 //    private var gameArrary:ArrayList<Int> = ArrayList<Int>()
     private var gameDataArrary:ArrayList<String> = ArrayList<String>()
     private var gameAnswerArrary:ArrayList<Int> = ArrayList<Int>()
+    private var indexNumberArrary:ArrayList<Int> = arrayListOf(1,2,3,4,5,6,7,8,9)
     private var answerResult:Int = 0
     private var base:Int = 0
     private var count:Int = 0
     private var baseNumber:Int = 0
-    private var gameType:Int = 3
+    private var subNumber:Int = 0
+    private var answerNumber:Int = 3
+    private var modeType:Int = 2
+    private var gameType:String =  CommonValue().GAME_TYPE_NORMAL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         gameDataArrary = SharedPreferencesUtil().getStringArrayPref(this,"GAMES")!!
+        gameType = SharedPreferencesUtil().getSingleStringValue(this,CommonValue().SHARED_GAME_TYPE)
+
+        Log.d("BRANDI gameType",gameType)
 
         base = gameDataArrary[baseNumber].toInt()
         mBinding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.result.isClickable = true
         binding.result.visibility = View.GONE
-
-        count = 1
+        count = 0
+        sortCount()
         answerMaker()
         checkAnswer()
     }
 
     private fun setGame() {
-        answerResult =  base * count
-        binding.problemText.text = base.toString()+"X"+ count.toString()
+        answerResult =  base * indexNumberArrary[count]
+        binding.problemText.text = base.toString()+"X"+ indexNumberArrary[count].toString()
         binding.answerGroup.answer1.text = gameAnswerArrary[0].toString()
         binding.answerGroup.answer2.text = gameAnswerArrary[1].toString()
         binding.answerGroup.answer3.text = gameAnswerArrary[2].toString()
@@ -61,15 +69,13 @@ class GameActivity : AppCompatActivity() {
 
     private fun answerMaker() {
         gameAnswerArrary = ArrayList<Int>()
-        val random = Random()
-        var limitNumber =  base * count
+        var limitNumber =  base * indexNumberArrary[count]
         var min =  limitNumber - 2
         var max =  limitNumber + 4
 
         gameAnswerArrary.add(limitNumber)
 
-        while (gameAnswerArrary.size < gameType){
-//            val num = random.nextInt(limitNumber)
+        while (gameAnswerArrary.size < answerNumber){
             val num = RandomUtil().rangeSingle(min,max)
             if(!gameAnswerArrary.contains(num) && num != 0){
                 gameAnswerArrary.add(num)
@@ -78,6 +84,7 @@ class GameActivity : AppCompatActivity() {
 
         // 섞는다.
         gameAnswerArrary.shuffle()
+//        gameAnswerArrary.reverse()
         Log.d("gameAnswerArrary",gameAnswerArrary.toString())
         setGame()
     }
@@ -120,7 +127,7 @@ class GameActivity : AppCompatActivity() {
 
 
     private fun nextProblem() {
-        if(count < 9){
+        if(count < 8){
             count++
             binding.result.visibility = View.GONE
             answerMaker()
@@ -128,12 +135,22 @@ class GameActivity : AppCompatActivity() {
             if(baseNumber < (gameDataArrary.size - 1)){
                 baseNumber++
                 base = gameDataArrary[baseNumber].toInt()
-                count = 1
+                count = 0
                 binding.result.visibility = View.GONE
+                sortCount()
                 answerMaker()
             }else{
                 Toast.makeText(this, "FINISH", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun sortCount() {
+        when(gameType){
+            CommonValue().GAME_TYPE_NORMAL->  indexNumberArrary.sort()
+            CommonValue().GAME_TYPE_REVERSE-> indexNumberArrary.reverse()
+            CommonValue().GAME_TYPE_RANDOM-> indexNumberArrary.shuffle()
+            else-> indexNumberArrary.sort()
         }
     }
 

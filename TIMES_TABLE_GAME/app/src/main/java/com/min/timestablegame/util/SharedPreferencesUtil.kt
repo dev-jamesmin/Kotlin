@@ -39,4 +39,48 @@ class SharedPreferencesUtil {
         }
         return urls
     }
+
+    fun setSingleStringValue(context: Context,
+                             stringKey: String? = null,
+                             value:String? = null) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val editor = prefs.edit()
+        if(value != null){ editor.putString(stringKey, value) }
+        editor.commit()
+    }
+
+    fun getSingleStringValue(context: Context, key: String):String {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        return sharedPreferences.getString(key, "").toString()
+    }
+
+    fun setSingleIntValue(context: Context,
+                          intKey: String? = null,
+                          intValue:Int? = null ) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val editor = prefs.edit()
+        if(intValue != null){ editor.putInt(intKey, intValue) }
+        editor.commit()
+    }
+
+
+    fun getSingleIntValue(context: Context, key: String): Int {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        return sharedPreferences.getInt(key, -1)
+    }
+
+    fun getStringValue(context: Context, key: String, values: ArrayList<Int>) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val editor = prefs.edit()
+        val a = JSONArray()
+        for (i in 0 until values.size) {
+            a.put(values[i])
+        }
+        if (values.isNotEmpty()) {
+            editor.putString(key, a.toString())
+        } else {
+            editor.putString(key, null)
+        }
+        editor.apply()
+    }
 }

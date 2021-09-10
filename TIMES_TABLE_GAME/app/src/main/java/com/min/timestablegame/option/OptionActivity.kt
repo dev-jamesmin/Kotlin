@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.min.timestablegame.common.CommonValue
 import com.min.timestablegame.databinding.ActivityOptionBinding
 import com.min.timestablegame.util.SharedPreferencesUtil
 
@@ -28,11 +29,27 @@ class OptionActivity : AppCompatActivity() {
                 setCheckBox()
             }
         }
-
+        
+        setRadioData(SharedPreferencesUtil().getSingleStringValue(this,CommonValue().SHARED_GAME_TYPE))
         Log.d("[BRANDI]", "[gameData-Arrary]$gameDataArrary")
 
         setOptionButtons()
+        setDirectionsOption()
         setComplete()
+    }
+
+    private fun setDirectionsOption() {
+        binding.radioGroup2.radioTypeNormal.setOnClickListener{
+            SharedPreferencesUtil().setSingleStringValue(this, CommonValue().SHARED_GAME_TYPE,CommonValue().GAME_TYPE_NORMAL)
+        }
+
+        binding.radioGroup2.radioTypeRandom.setOnClickListener{
+            SharedPreferencesUtil().setSingleStringValue(this,CommonValue().SHARED_GAME_TYPE,CommonValue().GAME_TYPE_RANDOM)
+        }
+
+        binding.radioGroup2.radioTypeReverse.setOnClickListener{
+            SharedPreferencesUtil().setSingleStringValue(this,CommonValue().SHARED_GAME_TYPE,CommonValue().GAME_TYPE_REVERSE)
+        }
     }
 
      private fun setOptionButtons() {
@@ -130,6 +147,16 @@ class OptionActivity : AppCompatActivity() {
             8-> binding.checkbox8.isChecked = true
             9-> binding.checkbox9.isChecked = true
             else-> "3"
+        }
+    }
+
+    private fun setRadioData(gameType:String) {
+        Log.d("[BRANDI]", "[num]$gameType")
+        when(gameType){
+            CommonValue().GAME_TYPE_NORMAL->  binding.radioGroup2.radioTypeNormal.isChecked = true
+            CommonValue().GAME_TYPE_RANDOM-> binding.radioGroup2.radioTypeRandom.isChecked = true
+            CommonValue().GAME_TYPE_REVERSE->  binding.radioGroup2.radioTypeReverse.isChecked = true
+            else-> binding.radioGroup2.radioTypeNormal.isChecked = true
         }
     }
 
