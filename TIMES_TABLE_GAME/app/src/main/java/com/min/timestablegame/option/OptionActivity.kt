@@ -29,7 +29,7 @@ class OptionActivity : AppCompatActivity() {
                 setCheckBox()
             }
         }
-        
+
         setRadioData(SharedPreferencesUtil().getSingleStringValue(this,CommonValue().SHARED_GAME_TYPE))
         Log.d("[BRANDI]", "[gameData-Arrary]$gameDataArrary")
 
