@@ -53,7 +53,7 @@ class GameActivity : AppCompatActivity() {
 
     private fun setGame() {
         answerResult =  base * indexNumberArrary[count]
-        binding.problemText.text = base.toString()+"X"+ indexNumberArrary[count].toString()
+        (base.toString()+"X"+ indexNumberArrary[count].toString()).also { binding.problemText.text = it }
         binding.answerGroup.answer1.text = gameAnswerArrary[0].toString()
         binding.answerGroup.answer2.text = gameAnswerArrary[1].toString()
         binding.answerGroup.answer3.text = gameAnswerArrary[2].toString()
@@ -69,9 +69,9 @@ class GameActivity : AppCompatActivity() {
 
     private fun answerMaker() {
         gameAnswerArrary = ArrayList<Int>()
-        var limitNumber =  base * indexNumberArrary[count]
-        var min =  limitNumber - 2
-        var max =  limitNumber + 4
+        val limitNumber =  base * indexNumberArrary[count]
+        val min =  limitNumber - 2
+        val max =  limitNumber + 4
 
         gameAnswerArrary.add(limitNumber)
 
