@@ -1,6 +1,6 @@
 plugins {
-//    kotlin("multiplatform")
-//    id("org.jetbrains.compose") version Versions.composeDesktopWeb
+    kotlin("multiplatform")
+    id("org.jetbrains.compose") version Versions.composeDesktopWeb
 }
 
 version = "1.0"
@@ -10,26 +10,23 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
 
-//kotlin {
-//
-//
-////    js(IR) {
-////        browser()
-////        binaries.executable()
-////    }
-//
-////    sourceSets {
-////        val jsMain by getting {
-////            dependencies {
-//////                implementation(compose.web.widgets)
-//////                implementation(compose.web.core)
-//////                implementation(compose.runtime)
-////
-////                implementation(project(":common"))
-////            }
-////        }
-////    }
-//}
+kotlin {
+    js(IR) {
+        browser()
+        binaries.executable()
+    }
+
+    sourceSets {
+        val jsMain by getting {
+            dependencies {
+                implementation(compose.web.widgets)
+                implementation(compose.web.core)
+                implementation(compose.runtime)
+//                implementation(project(":common"))
+            }
+        }
+    }
+}
 
 // workaround for https://youtrack.jetbrains.com/issue/KT-48273
 //afterEvaluate {
@@ -39,8 +36,8 @@ repositories {
 //    }
 //}
 
-//compose.desktop {
-//    application {
-//        mainClass = ""
-//    }
-//}
+compose.desktop {
+    application {
+        mainClass = ""
+    }
+}
