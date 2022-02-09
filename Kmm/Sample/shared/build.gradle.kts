@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
@@ -11,6 +14,7 @@ kotlin {
     iosX64()
     iosArm64()
     //iosSimulatorArm64() sure all ios dependencies support this target
+    jvm()
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -20,6 +24,11 @@ kotlin {
         framework {
             baseName = "shared"
         }
+    }
+
+    js(IR) {
+        useCommonJs()
+        browser()
     }
     
     sourceSets {
@@ -54,6 +63,16 @@ kotlin {
             iosX64Test.dependsOn(this)
             iosArm64Test.dependsOn(this)
             //iosSimulatorArm64Test.dependsOn(this)
+        }
+
+        sourceSets["jvmMain"].dependencies {
+            implementation(Deps.Ktor.clientJava)
+            implementation(Deps.SqlDelight.sqliteDriver)
+            implementation(Deps.Log.slf4j)
+        }
+
+        sourceSets["jsMain"].dependencies {
+            implementation(Deps.Ktor.clientJs)
         }
     }
 }
