@@ -9,3 +9,4 @@ pluginManagement {
 rootProject.name = "kmmSample"
 include(":androidApp")
 include(":shared")
+include(":compose-web")
