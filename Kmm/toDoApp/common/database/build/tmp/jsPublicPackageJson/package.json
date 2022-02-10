@@ -1,0 +1,11 @@
+{
+  "name": "toDoApp-database",
+  "version": "0.0.0-unspecified",
+  "main": "toDoApp-database.js",
+  "types": "toDoApp-database.d.ts",
+  "devDependencies": {},
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}

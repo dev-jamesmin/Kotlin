@@ -1,0 +1,8 @@
+builtins_platform=JS
+unique_name=toDoApp.common\:database
+compiler_version=1.6.10
+depends=com.squareup.sqldelight\:sqljs-driver com.squareup.sqldelight\:runtime com.badoo.reaktive\:reaktive com.badoo.reaktive\:utils com.badoo.reaktive\:reaktive-annotations kotlin
+jsOutputName=toDoApp-database
+abi_version=1.6.0
+metadata_version=1.4.1
+ir_version=1.0.0

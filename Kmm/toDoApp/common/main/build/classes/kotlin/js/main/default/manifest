@@ -1,0 +1,8 @@
+builtins_platform=JS
+unique_name=toDoApp.common\:main
+compiler_version=1.6.10
+depends=toDoApp.common\:utils toDoApp.common\:database MVIKotlin\:mvikotlin-extensions-reaktive com.squareup.sqldelight\:sqljs-driver Decompose\:decompose MVIKotlin\:mvikotlin MVIKotlin\:rx-internal MVIKotlin\:rx com.squareup.sqldelight\:runtime Essenty\:lifecycle Essenty\:state-keeper Essenty\:instance-keeper Essenty\:back-pressed MVIKotlin\:utils-internal com.badoo.reaktive\:reaktive com.badoo.reaktive\:reaktive-annotations Essenty\:parcelable Essenty\:utils-internal com.badoo.reaktive\:utils kotlin
+jsOutputName=toDoApp-main
+abi_version=1.6.0
+metadata_version=1.4.1
+ir_version=1.0.0

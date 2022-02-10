@@ -1,0 +1,11 @@
+{
+  "name": "toDoApp-edit",
+  "version": "0.0.0-unspecified",
+  "main": "toDoApp-edit.js",
+  "types": "toDoApp-edit.d.ts",
+  "devDependencies": {},
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}

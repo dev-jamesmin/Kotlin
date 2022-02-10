@@ -1,0 +1,8 @@
+builtins_platform=JS
+unique_name=toDoApp.common\:utils
+compiler_version=1.6.10
+depends=MVIKotlin\:mvikotlin MVIKotlin\:rx-internal MVIKotlin\:rx Decompose\:decompose com.badoo.reaktive\:reaktive MVIKotlin\:utils-internal Essenty\:lifecycle Essenty\:instance-keeper Essenty\:state-keeper Essenty\:back-pressed com.badoo.reaktive\:utils com.badoo.reaktive\:reaktive-annotations Essenty\:parcelable Essenty\:utils-internal kotlin
+jsOutputName=toDoApp-utils
+abi_version=1.6.0
+metadata_version=1.4.1
+ir_version=1.0.0

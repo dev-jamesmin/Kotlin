@@ -1,0 +1,11 @@
+{
+  "name": "toDoApp-root",
+  "version": "0.0.0-unspecified",
+  "main": "toDoApp-root.js",
+  "types": "toDoApp-root.d.ts",
+  "devDependencies": {},
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}
