@@ -18,7 +18,7 @@ dependencies {
     implementation(Deps.Squareup.SQLDelight.gradlePlugin)
 }
 
-//kotlin {
-//    // Add Deps to compilation, so it will become available in main project
-//    sourceSets.getByName("main").kotlin.srcDir("buildSrc/src/main/kotlin")
-//}
+kotlin {
+    // Add Deps to compilation, so it will become available in main project
+    sourceSets.getByName("main").kotlin.srcDir("buildSrc/src/main/kotlin")
+}
